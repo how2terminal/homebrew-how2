@@ -1,13 +1,21 @@
 class How2 < Formula
   desc "AI for your terminal"
   homepage "https://how2terminal.com"
-  url "https://github.com/santinic/how2/releases/download/v3.0.0-beta/how2-macos-x64.tar.gz"
-  version "3.0.0"
-  sha256 "d4becf4ea3e8c15ea355c6061a0c2d84a509166f1e9bcadb8e90f7321e02ae1e"
+  if Hardware::CPU.intel?
+    url "https://github.com/santinic/how2/releases/download/v3.0.2/how2-macos-x64.tar.gz"
+    sha256 "c5b18ff96f4bf9f82db0729555cd1ef33e2eb703ac60b474dba0e5832d76ef5c"
+  else
+    url "https://github.com/santinic/how2/releases/download/v3.0.2/how2-macos-arm64.tar.gz"
+    sha256 "c7f9fbe53a704fdfb20c5ac914deea7da849bd3022387f6a5881f43d099bf585"
+  end
   license "MIT"
 
   def install
-    bin.install "how2-macos-x64" => "how2"
+    if Hardware::CPU.intel?
+      bin.install "how2-macos-x64" => "how2"
+    else
+      bin.install "how2-macos-arm64" => "how2"
+    end
   end
 
   test do
